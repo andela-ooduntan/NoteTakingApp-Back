@@ -31,6 +31,13 @@ app.use(function(req, res, next) {
   next(err);
 });
 
+app.all('/*', function (request, response, next) {
+  response.header("Access-Control-Allow-Origin", "*");
+  response.header("Access-Control-Allow-Headers", "X-Requested-With");
+  response.header("Access-Control-Allow-Methods", "GET, POST", "PUT", "DELETE");
+  next();
+});
+
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development

@@ -1,13 +1,14 @@
 var noteService = require('../servives/noteService')
 module.exports = {
   createNote: function (req, res) {
+    console.log(req);
     var noteData = req.body;
-    // if(privateProperty.validateNoteData(noteData)) {
-    //   return  noteService.createNote(noteData, function (err, result) {
-    //     return err ? res.status(400).json({result: result}) : res.json({result: result});
-    //   })
-    // }
-   return res.json('Invalid data', 400);
+    if(privateProperty.validateNoteData(noteData)) {
+      return  noteService.createNote(noteData, function (err, result) {
+        return err ? res.status(400).json({result: result}) : res.json({result: result});
+      })
+    }
+   return res.status(400).json('Invalid data');
   },
 
   updateNote: function (req, res) {
@@ -35,6 +36,12 @@ module.exports = {
 
   },
 
+  searchNote: function (req, res) {
+    return  noteService.findNote(req.query.q, function (err, result) {
+      return err ? res.status(400).json({result: result}) : res.json({result: result});
+    });
+  },
+
   fetchOneNote: function (req, res) {
     var noteId = req.params.id;
     if(noteId) {
@@ -48,6 +55,7 @@ module.exports = {
 
 var privateProperty = {
   validateNoteData: function (data) {
+    console.log(data, 'this is data');
     if(data.title && data.content) {
       return data.title.length && data.content.length;
     }
