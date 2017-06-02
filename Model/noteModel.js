@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var bookCollection = mongoose.Schema({
+var noteCollection = mongoose.Schema({
   tagId: [{
     type: Schema.Types.ObjectId,
     ref: 'tags'
@@ -19,4 +19,4 @@ var bookCollection = mongoose.Schema({
   }
 });
 
-module.exports = mongoose.model('notes', bookCollection);
+module.exports = mongoose.model('notes', noteCollection);
