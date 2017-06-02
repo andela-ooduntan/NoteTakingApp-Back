@@ -1,20 +1,20 @@
-var bookModel = require('../Model/bookModel');
+var noteModel = require('../Model/noteModel');
 
 module.exports = {
-  createBook: function (bookData, cb) {
-    var book = new bookModel(userdata);
-    book.save(function (err) {
-      return err ? cb(false, err) : cb(true, err);
+  createNote: function (noteData, cb) {
+    var newNote = new noteModel(noteData);
+    newNote.save(function (err) {
+      return err ? cb(true, err) : cb(false, err);
     });
   },
-  getBooks: function (bookId, cb) {
-    var query = bookData ? {_id: bookId} : {};
-   bookModel.find(query, cb);
+  getNote: function (noteId, cb) {
+    var query = noteId ? {_id: noteId} : {};
+   noteModel.find(query, cb);
   },
-  deleteBooks: function (id, bookData, cb) {
-    bookModel.deleteOne({id: id}, bookData, cb);
+  deleteNote: function (id, cb) {
+    noteModel.deleteOne({id: id}, cb);
   },
-  updateBooks: function (id, bookData, cb) {
-    user.update({id: id}, bookData, cb);
+  updateNote: function (id, noteData, cb) {
+    noteModel.update({id: id}, noteData, cb);
   }
 }

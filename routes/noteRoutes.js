@@ -1,16 +1,16 @@
 var express = require('express');
 var router = express.Router();
-var booksController = require('../controllers/noteController');
+var noteController = require('../controllers/noteController');
 
-/* GET users listing. */
-router.get('/books', booksController.fetchBooks);
+/* Note Verbs listing. */
+router.get('/notes', noteController.fetchAllNotes);
 
-router.get('/books/:id', booksController.fetchOneBooks);
+router.get('/notes/:id', noteController.fetchOneNote);
 
-router.post('/books', booksController.createBooks);
+router.post('/notes', noteController.createNote);
 
-router.put('/books/:id', booksController.updateBooks);
+router.put('/notes/:id', noteController.updateNote);
 
-router.delete('/books/:id', booksController.deleteBooks);
+router.delete('/notes/:id', noteController.deleteNote);
 
 module.exports = router;

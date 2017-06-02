@@ -1,53 +1,56 @@
-var booksService = require('../servives/noteService')
+var noteService = require('../servives/noteService')
 module.exports = {
-  createBooks: function (req, res) {
-    var bookData = req.body;
-    if(this.validateBook) {
-      return  booksService.createBook(bookData, function (err, result) {
-        return err ? res.status(400).json({result: result}) : res.json({result: result});
-      })
-    }
+  createNote: function (req, res) {
+    var noteData = req.body;
+    // if(privateProperty.validateNoteData(noteData)) {
+    //   return  noteService.createNote(noteData, function (err, result) {
+    //     return err ? res.status(400).json({result: result}) : res.json({result: result});
+    //   })
+    // }
    return res.json('Invalid data', 400);
   },
 
-  updateBooks: function (req, res) {
-    var bookData = req.body;
-    var bookId = req.params.id;
-    if(this.validateBook) {
-      return  booksService.updateBooks(bookId, bookData, function (err, result) {
+  updateNote: function (req, res) {
+    var noteData = req.body;
+    var noteId = req.params.id;
+      return  noteService.updateNote(noteId, noteData, function (err, result) {
+        return err ? res.status(400).json({result: result}) : res.json({result: result});
+      });
+  },
+
+  deleteNote: function (req, res) {
+    var noteId = req.params.id;
+    if(noteId) {
+      return  noteService.deleteNote(noteId, function (err, result) {
         return err ? res.status(400).json({result: result}) : res.json({result: result});
       })
     }
     return res.status(400).json({result: 'Invalid data'});
   },
 
-  deleteBooks: function (req, res) {
-    var bookData = req.body;
-    var bookId = req.params.id;
-    if(this.validateBook) {
-      return  booksService.deleteBooks(bookId, bookData, function (err, result) {
+  fetchAllNotes: function (req, res) {
+      return  noteService.getNote(null, function (err, result) {
         return err ? res.status(400).json({result: result}) : res.json({result: result});
-      })
-    }
-    return res.status(400).json({result: 'Invalid data'});
+    });
+
   },
 
-  fetchBooks: function (req, res) {
-    if(this.validateBook) {
-      return  booksService.getBooks(null, function (err, result) {
-        return err ? res.status(400).json({result: result}) : res.json({result: result});
-      })
-    }
-    return res.status(400).json({result: 'Invalid data'});
-  },
-
-  fetchOneBooks: function (req, res) {
-    var bookId = req.params.id;
-    if(this.validateBook) {
-      return  booksService.getBooks(bookId, function (err, result) {
+  fetchOneNote: function (req, res) {
+    var noteId = req.params.id;
+    if(noteId) {
+      return  noteService.getNote(noteId, function (err, result) {
         return err ? res.status(400).json({result: result}) : res.json({result: result});
       })
     }
     return res.status(400).json({result: 'Invalid data'});
   }
 };
+
+var privateProperty = {
+  validateNoteData: function (data) {
+    if(data.title && data.content) {
+      return data.title.length && data.content.length;
+    }
+    return false;
+  }
+}

@@ -6,6 +6,7 @@ router.get('/', function(req, res, next) {
   res.json({data: 'respond with a resource'});
 });
 // Loads all other routes here
-router.use('/notes', require('./noteRoutes'));
+router.use('/api', require('./noteRoutes'));
+router.use('/api', require('./tagRoutes'));
 
 module.exports = router;
