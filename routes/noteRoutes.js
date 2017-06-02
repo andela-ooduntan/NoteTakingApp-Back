@@ -5,6 +5,8 @@ var noteController = require('../controllers/noteController');
 /* Note Verbs listing. */
 router.get('/notes', noteController.fetchAllNotes);
 
+router.get('/find', noteController.searchNote);
+
 router.get('/notes/:id', noteController.fetchOneNote);
 
 router.post('/notes', noteController.createNote);
